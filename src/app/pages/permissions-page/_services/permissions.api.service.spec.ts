@@ -126,5 +126,23 @@ describe("PermissionsApiService", () => {
         req.flush(mockResponse);
     });
    
+    // ********************** SAD PATH TESTING ***************************
     
+    it('should return failed', (done) => {
+        const mockUserRoles = [
+            { id: 1, name: 'admin' },
+            { id: 2, name: 'accountholder' },
+            { id: 3, name: 'phrasereviewer' }
+        ];
+
+        service.getListOfRoles().then((result) => {
+            expect(result).toEqual(mockUserRoles);
+            done(); // Signal that the async test is complete
+        });
+
+        const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions/user-roles-list`);
+        expect(req.request.method).toEqual('GET');
+
+        req.flush(mockUserRoles); // Provide the mock response
+    });
 });

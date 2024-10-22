@@ -128,21 +128,81 @@ describe("PermissionsApiService", () => {
    
     // ********************** SAD PATH TESTING ***************************
     
-    it('should return failed', (done) => {
-        const mockUserRoles = [
-            { id: 1, name: 'admin' },
-            { id: 2, name: 'accountholder' },
-            { id: 3, name: 'phrasereviewer' }
-        ];
 
+    it('should handle empty roles list', (done) => {
+        // Call the service method
         service.getListOfRoles().then((result) => {
-            expect(result).toEqual(mockUserRoles);
+            // Assert that an empty list is correctly handled
+            expect(result).toEqual([]);
             done(); // Signal that the async test is complete
         });
-
+    
+        // Expect the request and provide an empty response
         const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions/user-roles-list`);
         expect(req.request.method).toEqual('GET');
-
-        req.flush(mockUserRoles); // Provide the mock response
+    
+        req.flush([]); // Provide an empty response
     });
+
+    it('should handle error response when getListOfRoles fails', (done) => {
+        // Call the service method
+        service.getListOfRoles().catch((error) => {
+            // Assert that the error handling logic is executed
+            expect(error.status).toEqual(500);
+            done(); // Signal that the async test is complete
+        });
+    
+        // Expect the request and mock a server error response
+        const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions/user-roles-list`);
+        expect(req.request.method).toEqual('GET');
+    
+        req.error(new ErrorEvent('Network error'), { status: 500, statusText: 'Internal Server Error' });
+    });
+    
+    it('should handle empty user list', (done) => {
+        // Call the service method
+        service.getListOfAllUsers().then((result) => {
+            // Assert that an empty list is correctly handled
+            expect(result).toEqual({});
+            done(); // Signal that the async test is complete
+        });
+    
+        // Expect the request and provide an empty response
+        const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions/users`);
+        expect(req.request.method).toEqual('GET');
+    
+        req.flush({}); // Provide an empty response
+    });
+
+    it('should handle error response when getListOfAllUsers fails', (done) => {
+        // Call the service method
+        service.getListOfAllUsers().catch((error) => {
+            // Assert that the error handling logic is executed
+            expect(error.status).toEqual(500);
+            done(); // Signal that the async test is complete
+        });
+    
+        // Expect the request and mock a server error response
+        const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions/users`);
+        expect(req.request.method).toEqual('GET');
+    
+        req.error(new ErrorEvent('Network error'), { status: 500, statusText: 'Internal Server Error' });
+    });
+
+    // it('should handle empty save request', (done) => {
+    //     const mockRoles = [];
+
+    //     //const mockResponse = { message: 'Error, roles not saved!' };
+
+    //     service.save(mockRoles).then((result) => {
+    //         expect(result).toEqual([]);
+    //         done();
+
+    //     });
+
+    //     const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions`);expect(req.request.method).toEqual('POST');
+
+    //     req.flush([]);
+    // });
+    
 });

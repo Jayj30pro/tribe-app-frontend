@@ -6,7 +6,7 @@ import { User } from '../_types/user.type';
 import { TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from "@angular/common/http";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing"; // Use HttpClientTestingModule
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing"; 
 
 
 
@@ -50,7 +50,7 @@ describe("PermissionsApiService", () => {
     });
 
     it("should return array with user objects", (done) => {
-        const mockUserRoles: User[] = [
+        const mockUsers: User[] = [
             {
                 id:  1,
                 name: "admin",
@@ -90,14 +90,14 @@ describe("PermissionsApiService", () => {
         ];
 
         service.getListOfAllUsers().then((result) => {
-            expect(result).toEqual(mockUserRoles);
+            expect(result).toEqual(mockUsers);
             done(); // Signal that the async test is complete
         });
 
         const req = httpTestingController.expectOne(`${environment.apiUrl}/api/permissions/users`);
         expect(req.request.method).toEqual('GET');
 
-        req.flush(mockUserRoles); // Provide the mock response 
+        req.flush(mockUsers); // Provide the mock response 
         
     });
 

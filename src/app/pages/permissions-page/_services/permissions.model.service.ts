@@ -90,45 +90,45 @@ export class PermissionsModelService {
     }
   }
 
-  toggleRoles1(role: string){
-    let currentRoles = [];
+  // toggleRoles1(role: string){
+  //   let currentRoles = [];
 
-    if (this.newUserRoles.length == 0) {
+  //   if (this.newUserRoles.length == 0) {
       
-      currentRoles = this.selectedUserRoles; 
-    }
-    else{
-      currentRoles = this.newUserRoles;
-    }
+  //     currentRoles = this.selectedUserRoles; 
+  //   }
+  //   else{
+  //     currentRoles = this.newUserRoles;
+  //   }
     
-    if (currentRoles.includes(role)) {
-      const remRole = currentRoles.indexOf(role)
-      currentRoles.splice(remRole,1);
-    }
-    else {
-      currentRoles.push(role);
-    }
+  //   if (currentRoles.includes(role)) {
+  //     const remRole = currentRoles.indexOf(role)
+  //     currentRoles.splice(remRole,1);
+  //   }
+  //   else {
+  //     currentRoles.push(role);
+  //   }
     
     
-    this.newUserRoles = currentRoles;
-    this.newUserRoles.sort();
+  //   this.newUserRoles = currentRoles;
+  //   this.newUserRoles.sort();
 
-    if (this.selectedUserRoles.toString() == this.newUserRoles.toString()) {
-      console.log('is not dirty');
-      this.dirtyOff();
+  //   if (this.selectedUserRoles.toString() == this.newUserRoles.toString()) {
+  //     console.log('is not dirty');
+  //     this.dirtyOff();
       
       
-    }
-    else {
-      console.log('is dirty');
-      this.dirtyOn();
-    }
+  //   }
+  //   else {
+  //     console.log('is dirty');
+  //     this.dirtyOn();
+  //   }
 
-    console.log("current state ", this.dirty);
-    console.log("selected ",this.selectedUserRoles);
-    console.log("new ",this.newUserRoles);
+  //   console.log("current state ", this.dirty);
+  //   console.log("selected ",this.selectedUserRoles);
+  //   console.log("new ",this.newUserRoles);
     
-  }
+  // }
 
   toggleRoles(role: string){
 

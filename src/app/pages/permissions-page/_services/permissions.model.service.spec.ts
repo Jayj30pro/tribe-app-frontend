@@ -112,13 +112,43 @@ describe("PermissionsModelService", () => {
         expect(response).toEqual(mockUserRoles);
     });
 
-    // it("description ", () => {
+    it("should test the is dirty function and return false ", () => {
+        const dirtyResponse: boolean = false;
+        service.dirty =  dirtyResponse;
+        let response = service.isDirty();
+
+        expect(response).toEqual(dirtyResponse);
+    });
+
+    // it("should return a list of user roles ", () => {
+    //     const listOfRoles = [{id: 1, name:'admin'},{id: 2, name:'account_holder'}];
+    //     const rolesOnly = ['account_holder', 'admin'];
+    //     service.model['listOfUserRoles'] = listOfRoles;
+    //     let response = service.getListOfAllRoles('user');
+        
+    //     expect(response).toEqual(rolesOnly);
         
     // });
 
-    // it("description ", () => {
-        
-    // });
+    it("should return a list of user roles and call getselectedUserRoles", () => {
+        const listOfRoles = [{ id: 1, name: 'admin' }, { id: 2, name: 'account_holder' }];
+        const rolesOnly = ['account_holder', 'admin'];
+        service.model = { listOfUserRoles: listOfRoles };
+    
+        // Spy on the getselectedUserRoles method and make it do nothing
+        spyOn(service, 'getselectedUserRoles').and.stub(); // `.and.stub()` makes it do nothing
+    
+        // Call the function under test
+        let response = service.getListOfAllRoles('user');
+    
+        // Verify the response
+        expect(response).toEqual(rolesOnly);
+    
+        // Verify that getselectedUserRoles is called with the correct argument
+        expect(service.getselectedUserRoles).toHaveBeenCalledWith('user');
+    });
+    
+    
 
     // it("description ", () => {
         

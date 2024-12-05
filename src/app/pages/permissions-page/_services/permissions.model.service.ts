@@ -64,6 +64,14 @@ export class PermissionsModelService {
     return this.model['listOfUsers'];
   }
 
+  getListOfRoles(): UserRole {
+    return this.model['listOfUserRoles'];
+  }
+
+  isDirty(): boolean {
+    return this.dirty;
+  }
+
 
   getListOfAllRoles(user) {
     let availableRoles = this.model['listOfUserRoles'];
@@ -90,45 +98,6 @@ export class PermissionsModelService {
     }
   }
 
-  // toggleRoles1(role: string){
-  //   let currentRoles = [];
-
-  //   if (this.newUserRoles.length == 0) {
-      
-  //     currentRoles = this.selectedUserRoles; 
-  //   }
-  //   else{
-  //     currentRoles = this.newUserRoles;
-  //   }
-    
-  //   if (currentRoles.includes(role)) {
-  //     const remRole = currentRoles.indexOf(role)
-  //     currentRoles.splice(remRole,1);
-  //   }
-  //   else {
-  //     currentRoles.push(role);
-  //   }
-    
-    
-  //   this.newUserRoles = currentRoles;
-  //   this.newUserRoles.sort();
-
-  //   if (this.selectedUserRoles.toString() == this.newUserRoles.toString()) {
-  //     console.log('is not dirty');
-  //     this.dirtyOff();
-      
-      
-  //   }
-  //   else {
-  //     console.log('is dirty');
-  //     this.dirtyOn();
-  //   }
-
-  //   console.log("current state ", this.dirty);
-  //   console.log("selected ",this.selectedUserRoles);
-  //   console.log("new ",this.newUserRoles);
-    
-  // }
 
   toggleRoles(role: string){
 
@@ -160,13 +129,6 @@ export class PermissionsModelService {
 
 
 
-  getListOfRoles(): UserRole {
-    return this.model['listOfUserRoles'];
-  }
-
-  isDirty(): boolean {
-    return this.dirty;
-  }
 
   clearValues(){
     this.selectedUserRoles = [];

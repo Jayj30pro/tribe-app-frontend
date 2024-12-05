@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ConnectPage } from './connect.page';
+import { OpenConnectionPage } from './open-connection.page';
 
-describe('ConnectPage', () => {
-  let component: ConnectPage;
-  let fixture: ComponentFixture<ConnectPage>;
+describe('OpenConnectionPage', () => {
+  let component: OpenConnectionPage;
+  let fixture: ComponentFixture<OpenConnectionPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConnectPage ],
+      declarations: [ OpenConnectionPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ConnectPage);
+    fixture = TestBed.createComponent(OpenConnectionPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

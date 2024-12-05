@@ -1,30 +1,37 @@
 <app-header [currentPageTitle]="headerPageTitle"></app-header>
 
-<ion-content>
-  <ion-card-title>  Logged in as: {{theCurrentUser.name}} </ion-card-title> 
-  <ion-card-title *ngIf="hasUser == false">Select a user </ion-card-title>
-  <ion-card-title *ngIf="hasUser == true">You selected {{selectedUser.name}} </ion-card-title>
-  <ion-item (click)="clearUser()" class="clickable"></ion-item>
-  <ion-item *ngFor="let user of getListOfUsers()" (click)="selectUser(user)" class="clickable">
-    {{user.name}} 
+<ion-content id="permissions-page">
+
+  <ion-item class="title ">
+    <ion-label class="ion-text-center">
+      Users
+    </ion-label>
   </ion-item>
-  <ion-item (click)="clearUser()" class="clickable"></ion-item>
-  <ion-item>Assigned Roles</ion-item>
-  <ng-container *ngIf="selectedSkills != []">
-    <ion-item *ngFor="let skils of selectedSkills"> {{skils}} <ion-button> X </ion-button></ion-item>    
-  </ng-container>
-  <ion-item>
-    <select aria-label="additional-roles">
-      <option> Options will</option>
-      <option> Go Here</option>
-    </select>
+
+  <div id="user-list">
+        <ion-item>
+      <ion-select  class="ion-text-center" interface="popover" placeholder="Select User" id="users-dropdown" aria-label="users" [disabled]="isDirty()" [(ngModel)]="selectedUser"> 
+        <ion-select-option *ngFor="let user of getListOfUsers()" [value]="user.name"> {{user.name}} </ion-select-option>
+       </ion-select>
+    </ion-item> 
+  </div>
+  <ion-item class="title ">
+    <ion-label class="ion-text-center">
+      Roles
+    </ion-label>
   </ion-item>
+  
+
+<ion-item *ngFor="let roleAvailable of getListOfAllRoles()" (click)="toggleRoles(roleAvailable)" [class.selected]="checkRole(roleAvailable)" [class.notSelected]="!checkRole(roleAvailable)"> 
+<div>{{roleAvailable}}</div>
+</ion-item>
+
+
+
 </ion-content>
-
-
 <ion-footer>
   <ion-toolbar id="bottom-toolbar" color="light">
-    <ion-button (click)="saveChanges()" fill="clear">Save</ion-button>
-    <ion-button (click)="cancelChanges()" fill="clear">Cancel</ion-button>
+    <ion-button [disabled]="isDirty() == false" (click)="saveRoleChanges()" fill="clear">Save</ion-button>
+    <ion-button (click)="exitToHomePage()" fill="clear">Cancel</ion-button>
   </ion-toolbar>
 </ion-footer>

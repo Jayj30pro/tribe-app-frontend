@@ -1,38 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from './_service/notifications.api.service';
+import { NotificationModelService } from './_service/notifications.model.service';
+
 
 @Component({
   selector: 'page-notification',
   templateUrl: './notifications.page.html',
-  styleUrls: ['./notifications.page.scss']
+  styleUrls: ['./notifications.page.scss'],
 })
-export class NotificationPage implements OnInit {
-  notifications: any[];
-  headerPageTitle: string = 'Notifications';
 
-  constructor(private notificationService: NotificationService) { }
+export class NotificationPage implements OnInit {
+  headerPageTitle: string = 'Notifications';
+  isPressed: boolean = false;
+  
+
+  constructor(private notificationModelService: NotificationModelService) {
+  }
 
   ngOnInit() {
-    // Call the getMessages() method of the notification service to load all notifications
-    this.notificationService.getMessages().subscribe(notifications => {
-      this.notifications = notifications;
-    });
+    this.notificationModelService.init();
   }
 
-  getIcon(notification: any): string {
-    const icon = notification.icon;
-    return icon ? icon : '';
+  get notifications() {
+    return this.notificationModelService.getNotifications();
   }
 
-  onDeleteNotification(id: number) {
-    // Call the deleteMessage() method of the notification service to delete a notification
-    this.notificationService.deleteMessage(id).subscribe(() => {
-      // Remove the deleted notification from the local array of notifications
-      this.notifications = this.notifications.filter(notification => notification.id !== id);
-    });
+  currentlyExpandedNotificationId: number | null = null;
+
+  toggleExpanded(notification: any) {
+    console.log("expanding!")
+    if (this.currentlyExpandedNotificationId === notification.id) {
+      this.currentlyExpandedNotificationId = null;
+    } else {
+      this.currentlyExpandedNotificationId = notification.id;
+    }
+  }
+
+  isNotificationExpanded(notification: any) {
+    return this.currentlyExpandedNotificationId === notification.id
+  }
+
+  isNotificationProgressed(notification: any) {
+    if (notification.progress > .01)
+      return true
+    else
+      return false
   }
 
   onShowMoreInfo(notification: any) {
-    console.log('More information: ', notification);
+    console.log('More information:', notification.body, notification.id, notification.isRead);
+    this.onNotificationRead(notification.id)
+    this.toggleExpanded(notification)
+    this.notificationModelService.setRead(notification)
+  }
+
+  onNotificationRead(id: number) {
+    this.notificationModelService.readNotification(id)
+  }
+
+  getIcon(notification: any): string {
+    const icon = notification.iconUrl;
+    return icon ? icon : '';
+  }
+
+  onDeleteNotification(notification: any) {
+    this.notificationModelService.deleteNotification(notification.id)
   }
 }

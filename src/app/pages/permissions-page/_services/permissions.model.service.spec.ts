@@ -93,18 +93,39 @@ describe("PermissionsModelService", () => {
                             {name: 'ROLE_accountholder', id: 2}]
                     }];
         service.model['listOfUsers'] = fakeUser;
-        console.log
         let response = service.getListOfUsers();
         
         expect(response).toEqual(fakeUser);
         
-        });
+    });
 
         
 
-    
 
-    // it("description ", (done) => {
+    it("should return roles from getListOfRoles ", () => {
+        const mockUserRoles: UserRole = 
+            { id: 1, name: 'admin' }
+        ;
+        service.model['listOfUserRoles'] = mockUserRoles;
+        let response = service.getListOfRoles();
+
+        expect(response).toEqual(mockUserRoles);
+    });
+
+    // it("description ", () => {
         
     // });
+
+    // it("description ", () => {
+        
+    // });
+
+    // it("description ", () => {
+        
+    // });
+    
+    // it("description ", () => {
+        
+    // });
+    
 });

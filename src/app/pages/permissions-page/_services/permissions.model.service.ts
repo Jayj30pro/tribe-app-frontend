@@ -50,6 +50,10 @@ export class PermissionsModelService {
 
   }
 
+  isDirty(): boolean {
+    return this.dirty;
+  }
+
   dirtyOn() {
     this.dirty = true;
   }
@@ -59,7 +63,7 @@ export class PermissionsModelService {
 
   }
 
-  
+ 
   getListOfUsers(): User[] {
     return this.model['listOfUsers'];
   }
@@ -67,11 +71,6 @@ export class PermissionsModelService {
   getListOfRoles(): UserRole {
     return this.model['listOfUserRoles'];
   }
-
-  isDirty(): boolean {
-    return this.dirty;
-  }
-
 
   getListOfAllRoles(user) {
     let availableRoles = this.model['listOfUserRoles'];
@@ -126,7 +125,6 @@ export class PermissionsModelService {
     }
 
   }
-
 
 
 

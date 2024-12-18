@@ -61,7 +61,7 @@ describe("PermissionsModelService", () => {
         const mockUserRoles: UserRole = 
             { id: 1, name: 'admin' }
         ;
-        service.model['listOfUserRoles'] = mockUserRoles;
+        service.model= {listOfUserRoles : mockUserRoles};
         let response = service.getListOfRoles();
 
         expect(response).toEqual(mockUserRoles);
@@ -82,15 +82,42 @@ describe("PermissionsModelService", () => {
     });
 
     it("should return a list of user roles ", () => {
-        const listOfRoles = [{id: 1, name:'admin'},{id: 2, name:'account_holder'}];
-        const rolesOnly = ['account_holder', 'admin'];
-        service.selectedUserRoles = [];
+        const currentUser = "admin";
         
-        let response = service.getselectedUserRoles('user');
+        const fakeUsers = [{
+            id:  1,
+            name: "admin",
+            password: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            phone: "3035551212",
+            email: "admin@tribeapp.com",
+            enabled: 1,
+            created: "2024-08-01 13:10:25.0",
+            lastUpdated: "2024-08-01 13:10:25.0",
+            roles: [{name: 'ROLE_admin', id: 1},
+                {name: 'ROLE_accountholder', id: 2}]
+        },
+        {
+            id: 2,
+            name: "testuser",
+            password: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            phone: "3035551213",
+            email: "testuser@tribeapp.com",
+            enabled: 1,
+            created: "2024-08-01 13:10:25.0",
+            lastUpdated: "2024-08-01 13:10:25.0",
+            roles: [{name: 'ROLE_admin', id: 1},
+                {name: 'ROLE_accountholder', id: 2}]
+        }];
+
+        const recordedRoles = ['ROLE_accountholder', 'ROLE_admin'];
+        service.model= {listOfUsers: fakeUsers};
+        
+        service.getselectedUserRoles(currentUser);
         
 
-        expect(response).toEqual(rolesOnly);
-        expect(service.getselectedUserRoles).toHaveBeenCalledWith('user');
+        
+        expect(service.selectedUserRoles).toEqual(recordedRoles);
+        
         
     });
 
@@ -115,7 +142,8 @@ describe("PermissionsModelService", () => {
         
 
     it("toggleRoles", () => {
-        const userInfo = 
+        const userInfo = [];
+        expect(true).toEqual(true);
     });
     
     

@@ -121,6 +121,34 @@ describe("PermissionsModelService", () => {
         
     });
 
+    //option 1
+    it("should add roles to empty array newUserRoles, and change to dirty status", () => {
+        const startRoles = ["ROLE_accountholder"];
+        const endRoles = ["ROLE_accountholder", "ROLE_admin"];
+        service.newUserRoles = [];
+        service.selectedUserRoles = startRoles;
+        service.toggleRoles("ROLE_admin");
+
+        expect(service.newUserRoles.length).toEqual(2);
+        expect(service.newUserRoles).toEqual(endRoles);
+        expect(service.dirty).toEqual(true);
+    });
+
+    //option 2
+    it("should add roles to empty array newUserRoles, and change to dirty status", () => {
+        const endRoles = ["ROLE_accountholder"];
+        const  startRoles= ["ROLE_accountholder", "ROLE_admin"];
+        service.newUserRoles =  startRoles
+        service.selectedUserRoles = startRoles;
+        service.toggleRoles("ROLE_admin");
+
+        expect(service.newUserRoles.length).toEqual(1);
+        expect(service.newUserRoles).toEqual(endRoles);
+        expect(service.dirty).toEqual(false);
+    });
+    
+    
+
     // it("should return a list of user roles and call getselectedUserRoles", () => {
     //     const listOfRoles = [{ id: 1, name: 'admin' }, { id: 2, name: 'account_holder' }];
     //     const rolesOnly = ['account_holder', 'admin'];
@@ -141,11 +169,7 @@ describe("PermissionsModelService", () => {
     // });
         
 
-    it("toggleRoles", () => {
-        const userInfo = [];
-        expect(true).toEqual(true);
-    });
-    
+
     
     // it("clearValues ", () => {
         

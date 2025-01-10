@@ -135,7 +135,7 @@ describe("PermissionsModelService", () => {
     });
 
     //option 2
-    it("should add roles to empty array newUserRoles, and change to dirty status", () => {
+    it("should remove admin role from newUserRoles, and remove dirty status", () => {
         const endRoles = ["ROLE_accountholder"];
         const  startRoles= ["ROLE_accountholder", "ROLE_admin"];
         service.newUserRoles =  startRoles
